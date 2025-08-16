@@ -1,10 +1,10 @@
-package com.negretenico.changeme;
+package com.negretenico.glowing.octo.invention;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ChangemeApplicationTests {
+class GlowingOctoInventionApplicationTests {
 
 	@Test
 	void contextLoads() {
