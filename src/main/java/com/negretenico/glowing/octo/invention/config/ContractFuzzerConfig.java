@@ -1,7 +1,7 @@
 package com.negretenico.glowing.octo.invention.config;
 
-import com.negretenico.glowing.octo.invention.models.BankContract;
-import com.negretenico.glowing.octo.invention.models.InsuranceContract;
+import com.negretenico.glowing.octo.invention.models.contracts.BankContract;
+import com.negretenico.glowing.octo.invention.models.contracts.InsuranceContract;
 import com.negretenico.glowing.octo.invention.service.ContractFuzzerService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,7 +1,6 @@
-package com.negretenico.glowing.octo.invention.models;
+package com.negretenico.glowing.octo.invention.models.contracts;
 
 import com.common.functionico.evaluation.Result;
-import org.springframework.boot.availability.ReadinessState;
 
 public interface Contract<T> {
     Result add(T deposit);

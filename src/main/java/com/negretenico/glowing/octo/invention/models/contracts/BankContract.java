@@ -1,4 +1,4 @@
-package com.negretenico.glowing.octo.invention.models;
+package com.negretenico.glowing.octo.invention.models.contracts;
 
 import com.common.functionico.evaluation.Result;
 

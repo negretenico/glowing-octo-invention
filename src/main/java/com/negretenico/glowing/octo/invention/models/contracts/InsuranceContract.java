@@ -1,4 +1,4 @@
-package com.negretenico.glowing.octo.invention.models;
+package com.negretenico.glowing.octo.invention.models.contracts;
 
 import com.common.functionico.evaluation.Result;
 
@@ -19,6 +19,9 @@ public record InsuranceContract(BigInteger premiumAmountPaid, BigInteger coverag
     }
     public InsuranceContract claimEvent(){
         return new InsuranceContract(premiumAmountPaid, coverage,true,minPremiumAcceptableBeforePayout);
+    }
+    public  boolean hasMeetPremium(){
+        return premiumAmountPaid.compareTo(minPremiumAcceptableBeforePayout) ==0;
     }
     public Result<BigInteger> payout(){
         if(!claim){

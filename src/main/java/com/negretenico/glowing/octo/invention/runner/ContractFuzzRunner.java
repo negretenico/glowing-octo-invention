@@ -1,9 +1,10 @@
 package com.negretenico.glowing.octo.invention.runner;
 
 import com.common.functionico.evaluation.Result;
-import com.negretenico.glowing.octo.invention.models.BankContract;
-import com.negretenico.glowing.octo.invention.models.Contract;
-import com.negretenico.glowing.octo.invention.models.InsuranceContract;
+import com.negretenico.glowing.octo.invention.models.contracts.BankContract;
+import com.negretenico.glowing.octo.invention.models.contracts.Contract;
+import com.negretenico.glowing.octo.invention.models.contracts.InsuranceContract;
+import com.negretenico.glowing.octo.invention.models.invariants.Invariant;
 import com.negretenico.glowing.octo.invention.service.ContractFuzzerService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -17,30 +18,35 @@ import java.util.function.Supplier;
 @Configuration
 public class ContractFuzzRunner {
     private <T,U extends Contract<T>> void run(ContractFuzzerService<T,U> cfs,
-                                               Supplier<T> createRandom, int limit){
+                                               Supplier<T> createRandom,
+                                               int limit,
+                                               Invariant<U> invariant){
         System.out.println("Starting fuzzing");
         for(int i =0; i< limit; i ++){
             T rnd = createRandom.get();
             System.out.println("Fuzzing for "+rnd);
             cfs.fuzz(rnd);
+            invariant.check(cfs.getContract());
         }
         System.out.println("Finished fuzzing");
     }
     @Bean
     @Profile("bank")
     public CommandLineRunner bank(ContractFuzzerService<BigInteger,
-            BankContract> contractFuzzerService){
+            BankContract> contractFuzzerService,
+                                  Invariant<BankContract> invariant){
         return args ->{
             Random rnd = new Random();
             Supplier<BigInteger> create =
                     ()->BigInteger.valueOf(rnd.nextInt(100));
-            run(contractFuzzerService,create,10);
+            run(contractFuzzerService,create,10,invariant);
         };
     }
     @Bean
     @Profile("insurance")
     public CommandLineRunner insurance(ContractFuzzerService<BigInteger,
-            InsuranceContract> insuranceContract){
+            InsuranceContract> insuranceContract,
+                                       Invariant<InsuranceContract> invariant){
         return arg ->{
             Random rnd = new Random();
             Supplier<BigInteger> create =
@@ -51,7 +57,7 @@ public class ContractFuzzRunner {
                         }
                         return val;
                     };
-            run(insuranceContract,create,36);
+            run(insuranceContract,create,36,invariant);
             Result<BigInteger> payout =
                     insuranceContract.getContract().payout();
             String message =

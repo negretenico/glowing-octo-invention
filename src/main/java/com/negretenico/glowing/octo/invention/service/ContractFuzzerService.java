@@ -1,8 +1,7 @@
 package com.negretenico.glowing.octo.invention.service;
 
 import com.common.functionico.evaluation.Result;
-import com.negretenico.glowing.octo.invention.models.Contract;
-import org.springframework.stereotype.Service;
+import com.negretenico.glowing.octo.invention.models.contracts.Contract;
 
 import java.util.Random;
 
