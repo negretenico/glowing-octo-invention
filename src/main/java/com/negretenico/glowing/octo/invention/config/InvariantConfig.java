@@ -12,12 +12,12 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 public class InvariantConfig {
     @Bean
-    @Profile("bank")
+    @Profile("insurance")
     public Invariant<InsuranceContract> earlyPayout(){
         return new EarlyPayout();
     }
     @Bean
-    @Profile("insurance")
+    @Profile("bank")
     public Invariant<BankContract> nonNegativeBalance(){
         return new NonNegativeBalance();
     }
