@@ -6,6 +6,7 @@ import com.negretenico.glowing.octo.invention.models.Report;
 import com.negretenico.glowing.octo.invention.models.contracts.BankContract;
 import com.negretenico.glowing.octo.invention.models.contracts.Contract;
 import com.negretenico.glowing.octo.invention.models.contracts.InsuranceContract;
+import com.negretenico.glowing.octo.invention.models.contracts.Web3jBankContract;
 import com.negretenico.glowing.octo.invention.models.invariants.Invariant;
 import com.negretenico.glowing.octo.invention.service.ContractFuzzerService;
 import com.negretenico.glowing.octo.invention.service.FileWriterService;
@@ -85,6 +86,18 @@ public class ContractFuzzRunner {
                             payout.data()) :
                             payout.errorMsg();
             System.out.printf(message);
+        };
+    }
+    @Bean
+    @Profile("web3jbank")
+    public CommandLineRunner web3jBank(ContractFuzzerService<BigInteger,
+            Web3jBankContract> web3jBankContract, Invariant<Web3jBankContract>web3jBankContractFuzzerService){
+        return args ->{
+            Random rnd = new Random();
+            Supplier<BigInteger> create =
+                    ()->BigInteger.valueOf(rnd.nextInt(100));
+            fileWriterService.writeReport(run(web3jBankContract,create,10
+                    ,web3jBankContractFuzzerService));
         };
     }
 }

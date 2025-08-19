@@ -2,9 +2,11 @@ package com.negretenico.glowing.octo.invention.config;
 
 import com.negretenico.glowing.octo.invention.models.contracts.BankContract;
 import com.negretenico.glowing.octo.invention.models.contracts.InsuranceContract;
+import com.negretenico.glowing.octo.invention.models.contracts.Web3jBankContract;
 import com.negretenico.glowing.octo.invention.models.invariants.EarlyPayout;
 import com.negretenico.glowing.octo.invention.models.invariants.Invariant;
 import com.negretenico.glowing.octo.invention.models.invariants.NonNegativeBalance;
+import com.negretenico.glowing.octo.invention.models.invariants.Web3jNonNegativeBalance;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -20,5 +22,10 @@ public class InvariantConfig {
     @Profile("bank")
     public Invariant<BankContract> nonNegativeBalance(){
         return new NonNegativeBalance();
+    }
+    @Bean
+    @Profile("web3jbank")
+    public  Invariant<Web3jBankContract> nonNegativeBalanceWeb3(){
+        return  new Web3jNonNegativeBalance();
     }
 }
