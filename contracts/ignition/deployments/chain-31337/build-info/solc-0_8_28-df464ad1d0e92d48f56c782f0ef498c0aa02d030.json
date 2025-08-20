@@ -1,6 +1,6 @@
 {
   "_format": "hh3-sol-build-info-1",
-  "id": "solc-0_8_28-b1d133174574f56cfc5037f8e3fb1f9c17967d69",
+  "id": "solc-0_8_28-df464ad1d0e92d48f56c782f0ef498c0aa02d030",
   "solcVersion": "0.8.28",
   "solcLongVersion": "0.8.28+commit.7893614a",
   "userSourceNameMap": {
@@ -32,7 +32,7 @@
     },
     "sources": {
       "project/contracts/Bank.sol": {
-        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.20;\r\n\r\ncontract Bank {\r\n    mapping(address => uint256) public balances;\r\n\r\n    function deposit() public payable {\r\n        balances[msg.sender] += msg.value;\r\n    }\r\n\r\n    function withdraw(uint256 amount) public {\r\n        require(balances[msg.sender] >= amount, \"Not enough balance\");\r\n        balances[msg.sender] -= amount;\r\n        payable(msg.sender).transfer(amount);\r\n    }\r\n\r\n    function getBalance() public view returns (uint256) {\r\n        return balances[msg.sender];\r\n    }\r\n}\r\n"
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.20;\r\n\r\ncontract Bank {\r\n    mapping(address => uint256) public balances;\r\n\r\n  function deposit() public payable {\r\n    require(msg.value > 0, \"Deposit amount must be greater than 0\"); \r\n    balances[msg.sender] += msg.value;\r\n}\r\n\r\n\r\n    function withdraw(uint256 amount) public {\r\n        require(balances[msg.sender] >= amount, \"Not enough balance\");\r\n        balances[msg.sender] -= amount;\r\n        payable(msg.sender).transfer(amount);\r\n    }\r\n\r\n    function getBalance() public view returns (uint256) {\r\n        return balances[msg.sender];\r\n    }\r\n}\r\n"
       }
     }
   }

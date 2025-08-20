@@ -4,9 +4,11 @@ pragma solidity ^0.8.20;
 contract Bank {
     mapping(address => uint256) public balances;
 
-    function deposit() public payable {
-        balances[msg.sender] += msg.value;
-    }
+  function deposit() public payable {
+    require(msg.value > 0, "Deposit amount must be greater than 0"); 
+    balances[msg.sender] += msg.value;
+}
+
 
     function withdraw(uint256 amount) public {
         require(balances[msg.sender] >= amount, "Not enough balance");

@@ -4,7 +4,7 @@ export default buildModule("BankModule", (m) => {
   const counter = m.contract("Bank");
 
   m.call(counter, "deposit", [], {
-    value: 5_000n,
+    value: 500n,
   });
   m.call(counter, "withdraw", [5n]);
   m.call(counter, "getBalance", []);
